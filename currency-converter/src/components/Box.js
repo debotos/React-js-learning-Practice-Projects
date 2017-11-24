@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import RaisedButton from "material-ui/RaisedButton";
 import Snackbar from "material-ui/Snackbar";
+import FloatingActionButton from "material-ui/FloatingActionButton";
+import ContentAdd from "material-ui/svg-icons/social/person";
+import { Card } from "material-ui/Card";
 
 import { fetchSpecificRate } from "../actions/index";
 
@@ -116,37 +119,41 @@ class Box extends Component {
   render() {
     return (
       <div className="container">
-        <input
-          className="text-box"
-          type="number"
-          placeholder="Amount of currency here"
-          value={this.state.rateFromValue}
-          onChange={this.handleFrom}
-          //{/* onChange={(e) => this.setState({rateFromValue: e.target.value})} */}
-        />
-        <label htmlFor="from">From this currency</label>
-        <select
-          id="from"
-          className="select"
-          dangerouslySetInnerHTML={{
-            __html: this.renderCountriesOption()
-          }}
-          onChange={this.handleOptionFromChanged}
-          value={this.state.fromValue}
-        />
-        <label htmlFor="to">To this currency</label>
-        <select
-          id="to"
-          className="select"
-          dangerouslySetInnerHTML={{
-            __html: this.renderCountriesOption()
-          }}
-          value={this.state.toValue}
-          onChange={this.handleOptionToChanged}
-        />
-
-        {/* Select Output currency: */}
-        {/* <input
+        <Card className="first-card">
+          <label htmlFor="input-main">Place Amount of currency here to convert</label>
+          <input
+            id="input-main"
+            className="text-box"
+            type="number"
+            placeholder="Amount of currency here"
+            value={this.state.rateFromValue}
+            onChange={this.handleFrom}
+            //{/* onChange={(e) => this.setState({rateFromValue: e.target.value})} */}
+          />
+        </Card>
+        <Card className="middle-card">
+          <label htmlFor="from">From this currency</label>
+          <select
+            id="from"
+            className="select"
+            dangerouslySetInnerHTML={{
+              __html: this.renderCountriesOption()
+            }}
+            onChange={this.handleOptionFromChanged}
+            value={this.state.fromValue}
+          />
+          <label htmlFor="to">To this currency</label>
+          <select
+            id="to"
+            className="select"
+            dangerouslySetInnerHTML={{
+              __html: this.renderCountriesOption()
+            }}
+            value={this.state.toValue}
+            onChange={this.handleOptionToChanged}
+          />
+          {/* Select Output currency: */}
+          {/* <input
                   type="number"
                   placeholder="To this currency"
                   value={this.state.rateToValue}
@@ -154,25 +161,39 @@ class Box extends Component {
                   onChange={(e) => this.setState({rateToValue: e.target.value})}
                 /> */}
 
-        <RaisedButton
-          style={{marginTop: 10, height: 48}}
-          primary={true}
-          className="submit-button"
-          onClick={this.calculate}
-        >
-          Submit
-        </RaisedButton>
-
+          <RaisedButton
+            style={{ marginTop: 10, height: 48 }}
+            primary={true}
+            className="submit-button"
+            onClick={this.calculate}
+          >
+            Submit
+          </RaisedButton>
+        </Card>
         {/* <td colSpan={2}> */}
 
-        <div className="output">
-          {this.state.convertedMoney !== "" && (
-            <h1>
-              {this.state.rateFromValue} {this.state.fromValue} ={" "}
-              {this.state.convertedMoney} {this.state.toValue}
-            </h1>
-          )}
-        </div>
+        <Card className="last-card">
+          <div className="output">
+            {this.state.convertedMoney !== "" && (
+              <h1>
+                {this.state.rateFromValue} {this.state.fromValue} ={" "}
+                {this.state.convertedMoney} {this.state.toValue}
+              </h1>
+            )}
+          </div>
+        </Card>
+
+        <FloatingActionButton
+          style={{
+            float: "right",
+            marginTop: "auto",
+            marginLeft: 20
+          }}
+          href="https://github.com/debotos"
+        >
+          <ContentAdd />
+        </FloatingActionButton>
+
         <Snackbar
           open={this.state.open}
           message={
