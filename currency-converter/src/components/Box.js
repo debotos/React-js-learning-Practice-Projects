@@ -15,8 +15,10 @@ class Box extends Component {
       open: false,
       fromValue: "USD",
       toValue: "BDT",
-      rateFromValue: 0,
-      convertedMoney: null
+      rateFromValue: "",
+      convertedMoney: "",
+      buttonState: true,
+      showOrNot: true
       // rateToValue: null
     };
 
@@ -33,10 +35,8 @@ class Box extends Component {
     // const fromMoney = this.state.rateFromValue;
     // this.props.SpecificRate(from, to, fromMoney);
     this.setState({ convertedMoney: this.props.money.converted });
-    console.log("output::", this.state.convertedMoney);
-    this.setState({
-      open: true
-    });
+    this.setState({ open: true });
+    this.setState({ showOrNot: false })
   }
 
   handleOptionFromChanged(e) {
@@ -67,6 +67,11 @@ class Box extends Component {
       const from = this.state.fromValue;
       const to = this.state.toValue;
       const money = amount;
+      if (amount > 0) {
+        this.setState({ buttonState: false });
+      } else {
+        this.setState({ buttonState: true });
+      }
       this.props.SpecificRate(from, to, money);
       // this.setState({rateToValue: this.props.money.converted})
       // console.log('result is ', this.props.money.converted)
@@ -120,7 +125,7 @@ class Box extends Component {
     return (
       <div className="container">
         <Card className="first-card">
-          <label htmlFor="input-main">Place the Amount of currency here to convert</label>
+          <label htmlFor="input-main">Amount of currency here to convert</label>
           <input
             id="input-main"
             className="text-box"
@@ -142,7 +147,9 @@ class Box extends Component {
             onChange={this.handleOptionFromChanged}
             value={this.state.fromValue}
           />
-          <label id="toLable" htmlFor="to">To this currency</label>
+          <label id="toLable" htmlFor="to">
+            To this currency
+          </label>
           <select
             id="to"
             className="select"
@@ -164,6 +171,7 @@ class Box extends Component {
           <RaisedButton
             style={{ marginTop: 10, height: 48 }}
             primary={true}
+            disabled={this.state.buttonState}
             className="submit-button"
             onClick={this.calculate}
           >
@@ -174,7 +182,12 @@ class Box extends Component {
 
         <Card className="last-card">
           <div className="output">
-            {this.state.convertedMoney !== "" && (
+            {this.state.showOrNot ? (
+              <h1>
+                {this.state.rateFromValue} {this.state.fromValue} = {"?"}{" "}
+                {this.state.toValue}
+              </h1>
+            ) : (
               <h1>
                 {this.state.rateFromValue} {this.state.fromValue} ={" "}
                 {this.state.convertedMoney} {this.state.toValue}
