@@ -120,7 +120,7 @@ class Box extends Component {
     return (
       <div className="container">
         <Card className="first-card">
-          <label htmlFor="input-main">Place Amount of currency here to convert</label>
+          <label htmlFor="input-main">Place the Amount of currency here to convert</label>
           <input
             id="input-main"
             className="text-box"
@@ -142,7 +142,7 @@ class Box extends Component {
             onChange={this.handleOptionFromChanged}
             value={this.state.fromValue}
           />
-          <label htmlFor="to">To this currency</label>
+          <label id="toLable" htmlFor="to">To this currency</label>
           <select
             id="to"
             className="select"

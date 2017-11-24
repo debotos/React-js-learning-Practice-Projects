@@ -1,5 +1,6 @@
 .submit-button {
   width: 100%;
+  font-size: 25px;
 }
 
 .select {
@@ -40,4 +41,8 @@
 .last-card {
   margin: 20px;
   padding: 20px;
+}
+
+#toLable {
+  margin-top: 5px;
 }
